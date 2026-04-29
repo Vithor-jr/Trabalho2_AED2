@@ -14,18 +14,22 @@ typedef struct {
 
 No* criarNo(int valor);
 
+void rotacionarAEsquerda(No **no);
+
+void rotacionarADireita(No **no);
+
+short fatorDeBalanceamento(No *no);
+
 void criarAVL(AVL *arv);
+
+short alturaDoNo(No *no);
+
+void balanceador(No **no, int valor);
+
+void inserirRec(No **no, int valor);
 
 void inserirAVL(AVL *arv, int valor);
 
 char buscarAVL(AVL *arv, int valor);
-
-short fatorDeBalanceamento(No *no);
-
-short alturaDoNo(No *no);
-
-void rotacionarAEsquerda(AVL *arv);
-
-void rotacionarADireita(AVL *arv);
 
 #endif

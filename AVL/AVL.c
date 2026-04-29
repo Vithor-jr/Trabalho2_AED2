@@ -8,10 +8,43 @@ No* criarNo(int valor) {
     aux->esq = NULL;
     aux->dir = NULL;
     aux->altura = 0;
+
+    return aux;
+}
+
+void rotacionarAEsquerda(No **no) {
+    No *aux, *temp;
+    aux = *no;
+    temp = (*no)->dir;
+    
+    aux->dir = temp->esq;
+    temp->esq = aux;
+
+    aux->altura = alturaDoNo(aux);
+    temp->altura = alturaDoNo(temp);
+
+    *no = temp;
+}
+
+void rotacionarADireita(No **no) {
+    No *aux, *temp;
+    aux = *no;
+    temp = (*no)->esq;
+
+    aux->esq = temp->dir;
+    temp->dir = aux;
+
+    aux->altura = alturaDoNo(aux);
+    temp->altura = alturaDoNo(temp);
+
+    *no = temp;
 }
 
 short fatorDeBalanceamento(No *no) {
-    return no->esq->altura - no->dir->altura;
+    short altEsq, altDir;
+    altEsq = alturaDoNo(no->esq);
+    altDir = alturaDoNo(no->dir);
+    return altEsq - altDir;
 }
 
 void criarAVL(AVL *arv) {
@@ -19,49 +52,34 @@ void criarAVL(AVL *arv) {
 }
 
 short alturaDoNo(No *no) {
-    if(no->esq && no->dir) {
-        return (no->esq->altura > no->dir->altura)? no->esq->altura:no->dir->altura;
-    } 
-    else if(no->dir == NULL) {return no->esq->altura;}
-
-    return no->dir->altura;
+    if (no == NULL) return -1;
+    short altEsq = (no->esq != NULL) ? no->esq->altura : -1;
+    short altDir = (no->dir != NULL) ? no->dir->altura : -1;
+    return 1 + (altEsq > altDir ? altEsq : altDir);
 }
 
-void inserirEsqAVL(No *no, int valor) {
-    if(no != NULL) {
-        if(valor < no->esq->dado) {inserirEsqAVL(no->esq, valor);}
-        else {inserirDirAVL(no->dir, valor);}
-        no->altura = alturaDoNo(no);
-    } else {
-        no->esq = criarNo(valor);
+void balanceador(No **no, int valor) {
+    if(fatorDeBalanceamento(*no) > 1) {
+        if(valor < (*no)->esq->dado) {rotacionarADireita(no);}
+        else {rotacionarAEsquerda(&(*no)->esq); rotacionarADireita(no);}
+    } else if(fatorDeBalanceamento(*no) < -1) {
+        if(valor < (*no)->dir->dado) {rotacionarADireita(&(*no)->dir); rotacionarAEsquerda(no);}
+        else {rotacionarAEsquerda(no);}
     }
 }
 
-void inserirDirAVL(No *no, int valor) {
-    if(no != NULL) {
-        if(valor < no->dir->dado) {inserirEsqAVL(no->dir, valor);}
-        else {inserirDirAVL(no->dir, valor);}
-        no->altura = alturaDoNo(no);
-    } else {
-        no->dir = criarNo(valor);
-    }
+void inserirRec(No **no, int valor) {
+    if (*no == NULL) { *no = criarNo(valor); return; }
+
+    if      (valor < (*no)->dado) inserirRec(&(*no)->esq, valor);
+    else if (valor > (*no)->dado) inserirRec(&(*no)->dir, valor);
+
+    (*no)->altura = alturaDoNo(*no);
+    balanceador(no, valor);
 }
 
 void inserirAVL(AVL *arv, int valor) {
-    if(arv->raiz != NULL) {
-        if(valor < arv->raiz->dado) {inserirEsqAVL(arv->raiz, valor);}
-        else {inserirDirAVL(arv->raiz, valor);}
-        arv->raiz->altura = alturaDoNo(arv->raiz->altura);
-    } else {
-        arv->raiz = criarNo(valor);
-    }
-    if(fatorDeBalanceamento(arv->raiz) > 1) {
-        if(valor < arv->raiz->esq->dado) {rotacionarADireita(arv);}
-        else {rotacionarAEsquerda(arv); rotacionarADireita(arv);}
-    } else if(fatorDeBalanceamento(arv->raiz) < -1) {
-        if(valor < arv->raiz->dir->dado) {rotacionarADireita(arv); rotacionarAEsquerda(arv);}
-        else {rotacionarAEsquerda(arv);}
-    }
+    inserirRec(&(arv->raiz), valor);
 }
 
 char buscarAVL(AVL *arv, int valor) {
