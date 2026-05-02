@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "ArvBin/arvBin.h"
 #include "Vetor/Vetor.h"
 #include "Timer/timer.h"
 #include "ArvBin/arvBin.h"
 #include "AVL/AVL.h"
+#include "Pacote/ArvorePacote/arvorePacote.h"
+#include "Pacote/pacote.h"
 
 #include <time.h>
 #define TAM 1000000
@@ -40,6 +41,102 @@ void questao1 () {
 
 		LiberarVetor(&vet);
 }
+
+void embaralharPacotes(Pacote*pacotes, int tamanho){
+	for(int i = tamanho - 1; i > 0; i--){
+		int j = rand() % (i+1);
+		Pacote temp = pacotes[i];
+		pacotes[i] = pacotes[j];
+		pacotes[j] = temp;
+	}
+}
+
+void imprimirArquivoReconstuido(const char* nomeArquivo){
+
+	FILE *arquivo = fopen(nomeArquivo, "r");
+	if(arquivo == NULL){
+
+	printf("Erro ao abrir o arquivo.\n");
+	return;
+	}
+	char c;
+	while((c = fgetc(arquivo)) != EOF){
+		printf("%c", c);
+	}
+	fclose(arquivo);
+}
+void questao2(){
+
+	const char* msg = "VITHOR AMA MY MELODY E ACHA ELAS FOFAS COM KUROMI";
+	int qtdPacotes = 0;
+
+	while (msg[qtdPacotes] != '\0'){
+		qtdPacotes++;
+	}
+	Pacote pacotesOrdernados[qtdPacotes];
+	for (int i = 0; i < qtdPacotes; i++){
+		pacotesOrdernados[i] = criarPacote(i + 1, msg[i]);
+
+
+	}
+	//embaralhando 
+	Pacote chegadaPacotes[qtdPacotes];
+	for (int i = 0; i < qtdPacotes; i++){
+		chegadaPacotes[i] = pacotesOrdernados[i];
+	}
+
+	embaralharPacotes(chegadaPacotes, qtdPacotes);
+
+	//adicionando 10% de pacotes duplicados no final
+	int numeroPacotesDuplicados = qtdPacotes / 10;
+	int totalChegadaPacotes = qtdPacotes + numeroPacotesDuplicados;
+	Pacote chegadaPacotesComDuplicados[totalChegadaPacotes];
+
+	for(int i = 0; i <qtdPacotes; i++){
+		chegadaPacotesComDuplicados[i] = chegadaPacotes[i];
+	}
+
+	for(int i = 0; i < numeroPacotesDuplicados; i++){
+
+		// pega um pacote aleatorio pra duplicar no final
+		chegadaPacotesComDuplicados[qtdPacotes + i] = pacotesOrdernados[rand() % qtdPacotes];
+	}
+
+	// inserindo os pacotes na arvore ;)
+	NoPacote* raiz = NULL;
+
+	printf("\n================	questao 2 =================\n\n");
+	printf("Mensagem original: %s\n", msg);
+	printf("Total de pacotes: %d\n", qtdPacotes);
+	printf("Numero de pacotes duplicados: %d\n", numeroPacotesDuplicados);
+	
+	printf("Pacotes chegando na ordem: \n");
+	for(int i = 0; i< totalChegadaPacotes; i++){
+	printf("ID: %2d || Conteudo: %c %s \n", chegadaPacotesComDuplicados[i].id, chegadaPacotesComDuplicados[i].conteudo, (i >= qtdPacotes) ? "<<-- REPETIDO": "");
+
+	raiz = inserirNoPacote(raiz, chegadaPacotesComDuplicados[i]);
+	}
+
+	FILE *arquivo = fopen("mensagem_reconstruida.txt", "w");
+	if (arquivo == NULL) {
+		printf("Erro ao criar o arquivo.\n");
+		return;
+	}
+
+	percursoCentral(raiz, arquivo);
+	fclose(arquivo);
+
+
+	// testando o resultado ne 
+printf("Mensagem reconstruida em : arquivo_reconstruida.txt \n");
+printf("Mensagem do arquivo reconstruida: \n");
+imprimirArquivoReconstuido("mensagem_reconstruida.txt");
+printf("\n\n");
+
+liberarArvorePacote(raiz);
+}
+
+
 
 void questao3 () {
 	arvBin Arvore;
@@ -179,6 +276,10 @@ int main(){
 
 	printf("********* QUESTAO 1 *********");
   questao1();
+
+
+	printf("********* QUESTAO 2 *********");
+  questao2();
 
 	printf("\n\n********* QUESTAO 3 *********\n");
   questao3();
