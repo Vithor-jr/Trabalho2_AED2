@@ -11,7 +11,7 @@
 #define TAM 1000000
 
 void questao1 () {
-		tipoArv Arvore;
+		arvBin Arvore;
 		Vetor vet;
 
 		vet = CriarVetor(20);
@@ -41,11 +41,8 @@ void questao1 () {
 		LiberarVetor(&vet);
 }
 
-void questao2 () {
-}
-
 void questao3 () {
-	tipoArv Arvore;
+	arvBin Arvore;
 	Vetor vet;
 	Vetor valoresBusca;
 
@@ -113,7 +110,7 @@ void questao4 () {
 	double tempoCriacaoBin[10], tempoCriacaoAVL[10], tempoMedioBuscaBin[10], tempoMedioBuscaAVL[10];
 
   for(int j = 0; j < 10; j++) {
-        tipoArv bin;
+        arvBin bin;
         AVL avl;
         double tempoBin, tempoAVL;
 
@@ -138,8 +135,8 @@ void questao4 () {
         tempoCriacaoAVL[j] = tempoAVL;
 
         printf("---------------RODADA %d------------------: \n", j+1);
-        printf("TEMPO DE CRIAÇÃO DA ABP: %f s\n", tempoBin);
-        printf("TEMPO DE CRIAÇÃO DA AVL: %f s\n", tempoAVL);
+        printf("TEMPO DE CRIACAO DA ABP: %f s\n", tempoBin);
+        printf("TEMPO DE CRIACAO DA AVL: %f s\n", tempoAVL);
         printf("ALTURA DA ABP: %d \n", alturaABP(bin.raiz));
         printf("ALTURA DA AVL: %d \n", alturaDoNo(avl.raiz));
 
@@ -158,8 +155,8 @@ void questao4 () {
         }
         tempoMedioBuscaBin[j] = tempoBin/30;
         tempoMedioBuscaAVL[j] = tempoAVL/30;
-        printf("TEMPO MÉDIO DE BUSCA NA ABP: %f s \n", tempoMedioBuscaBin[j]);
-        printf("TEMPO MÉDIO DE BUSCA NA AVL: %f s \n", tempoMedioBuscaAVL[j]);
+        printf("TEMPO MEDIO DE BUSCA NA ABP: %f s \n", tempoMedioBuscaBin[j]);
+        printf("TEMPO MEDIO DE BUSCA NA AVL: %f s \n", tempoMedioBuscaAVL[j]);
     }
 
 	printf("RESULTADOS FINAIS: \n");
@@ -171,10 +168,10 @@ void questao4 () {
 			buscaAVL += tempoMedioBuscaAVL[i];
 	}
 	criacaoBin /= 10; criacaoAVL /= 10; buscaBin /= 10; buscaAVL /= 10;
-	printf("TEMPO MÉDIO DE CRIAÇÃO DA ABP: %f s \n", criacaoBin);
-	printf("TEMPO MÉDIO DE CRIAÇÃO DA AVL: %f s \n", criacaoAVL);
-	printf("TEMPO MÉDIO DE BUSCA NA ABP: %f s \n", buscaBin);
-	printf("TEMPO MÉDIO DE BUSCA NA AVL: %f s \n", buscaAVL);
+	printf("TEMPO MEDIO DE CRIACAO DA ABP: %f s \n", criacaoBin);
+	printf("TEMPO MEDIO DE CRIACAO DA AVL: %f s \n", criacaoAVL);
+	printf("TEMPO MEDIO DE BUSCA NA ABP: %f s \n", buscaBin);
+	printf("TEMPO MEDIO DE BUSCA NA AVL: %f s \n", buscaAVL);
 }
 
 int main(){

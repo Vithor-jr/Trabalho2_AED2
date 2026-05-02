@@ -7,15 +7,15 @@ typedef struct tipoNo{
     struct tipoNo* dir;
 }tipoNo;
 
-typedef struct tipoArv{
+typedef struct arvArv{
     tipoNo* raiz;
-}tipoArv;
+}arvBin;
 
-void inicializarArvore(tipoArv* Arvore);
+void inicializarArvore(arvBin* Arvore);
 
-void inserirElemento(tipoArv* Arvore, int elemento);
+void inserirElemento(arvBin * Arvore, int elemento);
 
-unsigned buscarElemento(tipoArv* Arvore, int elemento);
+unsigned buscarElemento(arvBin* Arvore, int elemento);
 
 void visita(tipoNo* no);
 
@@ -29,5 +29,6 @@ void imprimeBonito(tipoNo* no, char* prefixo, int isEsq);
 
 int alturaABP(tipoNo *raiz);
 
-void mostrarArvore(tipoArv* arv);
+void mostrarArvore(arvBin* arv);
+
 #endif

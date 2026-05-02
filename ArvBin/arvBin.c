@@ -4,11 +4,11 @@
 #include <string.h>
 #include "arvBin.h"
 
-void inicializarArvore(tipoArv* Arvore) {
+void inicializarArvore(arvBin* Arvore) {
     Arvore->raiz = NULL;
 }
 
-void inserirElemento(tipoArv* Arvore, int elemento) {
+void inserirElemento(arvBin* Arvore, int elemento) {
     tipoNo* aux = malloc(sizeof(tipoNo));
     aux->esq = NULL;
     aux->dir = NULL;
@@ -63,7 +63,7 @@ void emOrdem(tipoNo* raiz){
     }
 }
 
-unsigned buscarElemento(tipoArv* Arvore, int elemento) {
+unsigned buscarElemento(arvBin* Arvore, int elemento) {
     tipoNo* aux = Arvore->raiz;
     while (aux != NULL) {
         if (aux->chave == elemento)
@@ -105,7 +105,7 @@ void imprimeBonito(tipoNo* no, char* prefixo, int isEsq) {
     imprimeBonito(no->dir, novoPrefixo, 0);
 }
 
-void mostrarArvore(tipoArv* arv) {
+void mostrarArvore(arvBin* arv) {
     if (arv == NULL || arv->raiz == NULL) {
         printf("Arvore vazia.\n");
         return;
