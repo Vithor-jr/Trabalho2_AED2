@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
 #include "arvBin.h"
 
 void inicializarArvore(tipoArv* Arvore) {
@@ -10,11 +13,13 @@ void inserirElemento(tipoArv* Arvore, int elemento) {
     aux->esq = NULL;
     aux->dir = NULL;
     aux->chave = elemento;
+
     if (!Arvore->raiz) {
         Arvore->raiz = aux;
     } else {
         tipoNo* pai = NULL;
         tipoNo* folha = Arvore->raiz;
+      
         while (folha != NULL) {
             pai = folha;
             if (elemento > folha->chave)
@@ -22,6 +27,7 @@ void inserirElemento(tipoArv* Arvore, int elemento) {
             else
                 folha = folha->esq;
         }
+
         if (elemento > pai->chave)
             pai->dir = aux;
         else
@@ -68,4 +74,44 @@ unsigned buscarElemento(tipoArv* Arvore, int elemento) {
             aux = aux->esq;
     }
     return 0;
+}
+
+int alturaABP(tipoNo *raiz) {
+    if (raiz == NULL) {
+        return -1; // Árvore vazia, altura -1
+    } else {
+        int altEsq = alturaABP(raiz->esq);
+        int altDir = alturaABP(raiz->dir);
+        
+        // Retorna a maior altura + 1
+        if (altEsq > altDir)
+            return (altEsq + 1);
+        else
+            return (altDir + 1);
+    }
+}
+
+void imprimeBonito(tipoNo* no, char* prefixo, int isEsq) {
+    if (no == NULL) return;
+
+    printf("%s", prefixo);
+    printf(isEsq ? "|-- e: " : "\\-- d: ");
+    printf("%d\n", no->chave);
+
+    char novoPrefixo[1000];
+    sprintf(novoPrefixo, "%s%s", prefixo, isEsq ? "|   " : "    ");
+
+    imprimeBonito(no->esq, novoPrefixo, 1);
+    imprimeBonito(no->dir, novoPrefixo, 0);
+}
+
+void mostrarArvore(tipoArv* arv) {
+    if (arv == NULL || arv->raiz == NULL) {
+        printf("Arvore vazia.\n");
+        return;
+    }
+
+    printf("%d\n", arv->raiz->chave);
+    imprimeBonito(arv->raiz->esq, "", 1);
+    imprimeBonito(arv->raiz->dir, "", 0);
 }

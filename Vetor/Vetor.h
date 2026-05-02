@@ -17,7 +17,11 @@ void PreencherVetorOrdenado(Vetor *v);
 void CopiarVetor(Vetor *origem, Vetor *destino);
 void MostrarVetor(Vetor *v);
 
-int BuscaBinaria(int *v, int chave, int tam);
-int ElementoPresenteVetor(int vet[], int tam);
+void LiberarVetor(Vetor *v);
+void embaralhar(Vetor *v);
+
+int BuscaBinaria(Vetor *v, int chave);
+int ElementoPresenteVetor(Vetor *vet);
+void QuickSort(Vetor *v);
 
 #endif

@@ -1,5 +1,6 @@
 #include "Vetor.h"
 #include <stdio.h>
+#include <time.h>
 #include <stdlib.h>
 
 Vetor CriarVetor(int tamanho) {
@@ -15,17 +16,31 @@ void LiberarVetor(Vetor *v) {
     v->tamanho = 0;
 }
 
-void PreencherVetorDesordenado(Vetor *v) {
-    for (int i = 0; i < v->tamanho; i++) {
-        v->conteudo[i] = rand() % v->tamanho;
+void embaralhar(Vetor *v) {
+    for (int i = v->tamanho - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        int temp = v->conteudo[i];
+        v->conteudo[i] = v->conteudo[j];
+        v->conteudo[j] = temp;
     }
 }
 
-void PreencherVetorOrdenado(Vetor *v) {
+void PreencherVetorDesordenado(Vetor *v) {
     for (int i = 0; i < v->tamanho; i++) {
-        int min = i * 100 + (i > 0 ? 1 : 0);
-        int max = (i + 1) * 100;
-        v->conteudo[i] = rand() % (max - min + 1) + min;
+        v->conteudo[i] = i + 1;
+    }
+    embaralhar(v);
+}
+
+void PreencherVetorOrdenado(Vetor *v) {
+    int aux;
+    for (int i = 0; i < v->tamanho; i++) {
+        aux = rand() % 100;
+        if (i == 0) {
+            v->conteudo[i] = aux;
+        } else {
+            v->conteudo[i] = v->conteudo[i-1] + aux;
+        }
     }
 }
 
@@ -59,13 +74,13 @@ void CopiarVetor(Vetor *origem, Vetor *destino) {
     }
 }
 
-int BuscaBinaria(int *v, int chave, int tam) {
-    int i = 0, j = tam - 1, meio;
+int BuscaBinaria(Vetor *v, int chave) {
+    int i = 0, j = v->tamanho - 1, meio;
     while (i <= j) {
         meio = (i + j) / 2;
-        if (v[meio] == chave)
+        if (v->conteudo[meio] == chave)
             return 1;
-        else if (chave > v[meio])
+        else if (chave > v->conteudo[meio])
             i = meio + 1;
         else
             j = meio - 1;
@@ -73,7 +88,35 @@ int BuscaBinaria(int *v, int chave, int tam) {
     return 0;
 }
 
-int ElementoPresenteVetor(int vet[], int tam) {
-    int posicao = rand() % tam;
-    return vet[posicao];
+int ElementoPresenteVetor(Vetor *vet) {
+    int posicao = rand() % vet->tamanho;
+    return vet->conteudo[posicao];
+}
+
+
+static void QuickSortR(Vetor *v, int inicio, int fim) {
+    if (inicio >= fim) return;
+
+    int i = inicio, j = fim;
+    int pivot = v->conteudo[(inicio + fim) / 2];
+    int temp;
+
+    while (i <= j) {
+        while (v->conteudo[i] < pivot) i++;
+        while (v->conteudo[j] > pivot) j--;
+        if (i <= j) {
+            temp = v->conteudo[i];
+            v->conteudo[i] = v->conteudo[j];
+            v->conteudo[j] = temp;
+            i++;
+            j--;
+        }
+    }
+    QuickSortR(v, inicio, j);
+    QuickSortR(v, i, fim);
+}
+
+void QuickSort(Vetor *v) {
+    if (v->tamanho <= 1) return;
+    QuickSortR(v, 0, v->tamanho - 1);
 }

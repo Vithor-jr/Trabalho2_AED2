@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "AVL.h"
 
 No* criarNo(int valor) {
     No *aux;
-    aux = (No *) malloc(sizeof(No));
+    aux = (No *)malloc(sizeof(No));
     aux->dado = valor;
     aux->esq = NULL;
     aux->dir = NULL;
