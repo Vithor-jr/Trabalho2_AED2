@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "arvBin.h"
 
-void inicializarArvore(tipoArv* Arvore) {
+void inicializarArvore(arvBin* Arvore) {
     Arvore->raiz = NULL;
 }
 
-void inserirElemento(tipoArv* Arvore, int elemento) {
+void inserirElemento(arvBin* Arvore, int elemento) {
     tipoNo* aux = malloc(sizeof(tipoNo));
     aux->esq = NULL;
     aux->dir = NULL;
@@ -57,7 +58,7 @@ void emOrdem(tipoNo* raiz){
     }
 }
 
-unsigned buscarElemento(tipoArv* Arvore, int elemento) {
+unsigned buscarElemento(arvBin* Arvore, int elemento) {
     tipoNo* aux = Arvore->raiz;
     while (aux != NULL) {
         if (aux->chave == elemento)
@@ -68,4 +69,19 @@ unsigned buscarElemento(tipoArv* Arvore, int elemento) {
             aux = aux->esq;
     }
     return 0;
+}
+
+int altura(tipoNo *raiz) {
+    if (raiz == NULL) {
+        return -1; // Árvore vazia, altura -1
+    } else {
+        int altEsq = altura(raiz->esq);
+        int altDir = altura(raiz->dir);
+        
+        // Retorna a maior altura + 1
+        if (altEsq > altDir)
+            return (altEsq + 1);
+        else
+            return (altDir + 1);
+    }
 }

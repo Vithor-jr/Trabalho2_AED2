@@ -7,13 +7,13 @@ typedef struct tipoNo{
     struct tipoNo* dir;
 }tipoNo;
 
-typedef struct tipoArv{
+typedef struct arvBin{
     tipoNo* raiz;
-}tipoArv;
+}arvBin;
 
-void inicializarArvore(tipoArv* Arvore);
+void inicializarArvore(arvBin* Arvore);
 
-void inserirElemento(tipoArv* Arvore, int elemento);
+void inserirElemento(arvBin * Arvore, int elemento);
 
 void visita(tipoNo* no);
 
@@ -23,6 +23,8 @@ void posOrdem(tipoNo* raiz);
 
 void emOrdem(tipoNo* raiz);
 
-unsigned buscarElemento(tipoArv* Arvore, int elemento);
+unsigned buscarElemento(arvBin* Arvore, int elemento);
+
+int altura(tipoNo *raiz);
 
 #endif

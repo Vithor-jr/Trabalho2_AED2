@@ -17,7 +17,7 @@ double Timer_stop(clock_t start) {
 int main() {
     srand(time(NULL));
 
-    tipoArv Arvore;
+    arvBin Arvore;
     int* vet = malloc(TAM * sizeof(int));
 
     int valoresBusca[30];
