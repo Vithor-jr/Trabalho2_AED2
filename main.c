@@ -67,7 +67,8 @@ void imprimirArquivoReconstuido(const char* nomeArquivo){
 }
 void questao2(){
 
-	const char* msg = "VITHOR AMA MY MELODY E ACHA ELAS FOFAS COM KUROMI";
+
+	const char* msg = "Eu teria um desgosto profundo\nSe faltasse o Flamengo no mundo\nEle vibra, ele e fibra\nMuita libra ja pesou\nFlamengo ate morrer eu sou";
 	int qtdPacotes = 0;
 
 	while (msg[qtdPacotes] != '\0'){
