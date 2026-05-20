@@ -5,7 +5,7 @@
 #include "Timer/timer.h"
 #include "ArvBin/arvBin.h"
 #include "AVL/AVL.h"
-#include "Pacote/ArvorePacote/arvorePacote.h"
+#include "ArvorePacote/arvorePacote.h"
 #include "Pacote/pacote.h"
 
 #include <time.h>

@@ -78,7 +78,7 @@ Descrição dos módulos
 No terminal, navegue até a pasta do projeto e execute:
 
 ```bash
-gcc main.c ArvBin/arvBin.c AVL/AVL.c Pacote/pacote.c Pacote/ArvorePacote/arvorePacote.c Timer/timer.c Vetor/Vetor.c -o trabalho2
+gcc main.c ArvBin/arvBin.c AVL/AVL.c Pacote/pacote.c ArvorePacote/arvorePacote.c Timer/timer.c Vetor/Vetor.c -o trabalho2
 ```
 ### Exexcução
 

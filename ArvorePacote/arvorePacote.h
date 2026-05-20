@@ -1,6 +1,6 @@
 #ifndef ARVOREPACOTE_H
 #define ARVOREPACOTE_H
-#include "../pacote.h"
+#include "../Pacote/pacote.h"
 
 // este é um no que guarda um tipo Pacote
 typedef struct NoPacote{

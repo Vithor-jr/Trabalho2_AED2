@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include "stdio.h"
 #include "arvorePacote.h"
 
 NoPacote* criarNoPacote(Pacote pacote) {

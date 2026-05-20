@@ -1,4 +1,3 @@
-#include "stdio.h"
 #include "pacote.h"
 
 Pacote criarPacote(int id, char conteudo) {
