@@ -25,12 +25,13 @@ Trabalho2_AED2
 |       AVL.h
 |
 +---Pacote
-|   |   pacote.c
-|   |   pacote.h
-|   |
-|   \---ArvorePacote
-|           arvorePacote.c
-|           arvorePacote.h
+|      pacote.c
+|      pacote.h
+|   
+|
++---ArvorePacote
+|      arvorePacote.c
+|      arvorePacote.h
 |
 +---Timer
 |       timer.c
@@ -52,7 +53,7 @@ Descrição dos módulos
 - **Pacote/**  
   Estruturas e funções relacionadas à simulação de pacotes de rede.
 
-- **Pacote/ArvorePacote/**  
+- **ArvorePacote/**  
   Implementação de uma árvore binária para organização dos pacotes recebidos.
 
 - **Timer/**  
